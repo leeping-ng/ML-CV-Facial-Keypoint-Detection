@@ -3,10 +3,16 @@ import cv2
 import torch
 import matplotlib.pyplot as plt
 
-def show_keypoints(image, face_vertices, net, use_GPU, fig_width, pad):
+def show_keypoints(image, face_vertices, net, use_GPU, fig_shape, pad):
+    """
+    Plot keypoints on faces and return x and y of keypoints
+    """
     
     # make a copy of the original image to plot on
     image_copy = image.copy()
+    keypoints_x = []
+    keypoints_y = []
+    keypoints = []
 
     for i, (x,y,w,h) in enumerate(face_vertices):
         # Select the region of interest that is the face in the image
@@ -60,11 +66,49 @@ def show_keypoints(image, face_vertices, net, use_GPU, fig_width, pad):
         output_pts[:, 0] = output_pts[:, 0]*(w+2*pad)/224 + x-pad
         output_pts[:, 1] = output_pts[:, 1]*(h+2*pad)/224 + y-pad
 
-        plt.scatter(output_pts[:, 0], output_pts[:, 1], s=20, marker='.', c='m')
+        keypoints_x.append(output_pts[:, 0])
+        keypoints_y.append(output_pts[:, 1])
+        keypoints.append(output_pts)
 
-    fig = plt.figure(figsize=(fig_width, fig_width/1.5))
-    plt.imshow(image)
+    fig = plt.figure(figsize=tuple(fig_shape))
+    plt.scatter(keypoints_x, keypoints_y, s=20, marker='.', c='m')
+    plt.imshow(image_copy)
     
+    plt.axis("off")
+    plt.show()
+
+    return keypoints
+
+
+def show_shades(image, face_vertices, shades, keypoints, fig_shape):
+
+    # make a copy of the original image to plot on
+    image_copy = image.copy()
+    
+    for i in range(len(face_vertices)):
+
+        keypoints_i = keypoints[i]
+
+        shades_x = int(keypoints_i[17, 0])
+        shades_y = int(keypoints_i[17, 1])
+        shades_h = int(abs(keypoints_i[27,1] - keypoints_i[34,1]))
+        shades_w = int(abs(keypoints_i[17,0] - keypoints_i[26,0]))
+        
+        new_shades = cv2.resize(shades, (shades_w, shades_h), interpolation = cv2.INTER_CUBIC)
+
+        # get region of interest on the face to change
+        roi_color = image_copy[shades_y:shades_y+shades_h,shades_x:shades_x+shades_w]
+        
+        ind = np.argwhere(new_shades[:,:,3] > 0)
+        
+        for i in range(3):
+            roi_color[ind[:,0],ind[:,1],i] = new_shades[ind[:,0],ind[:,1],i]
+        
+        image_copy[shades_y:shades_y+shades_h,shades_x:shades_x+shades_w] = roi_color
+
+    fig = plt.figure(figsize=tuple(fig_shape))
+    plt.imshow(image_copy)
+
     plt.axis("off")
     plt.show()
 

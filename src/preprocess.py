@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.image as mpimg
 from torchvision import transforms
+from torch.utils.data import Dataset
 
 def prepare_data(path_train_csv, path_test_csv, path_train_images, path_test_images):
     """
@@ -22,7 +23,7 @@ def prepare_data(path_train_csv, path_test_csv, path_train_images, path_test_ima
 
 
 # Adapted from: https://pytorch.org/tutorials/beginner/data_loading_tutorial.html
-class FacialKeypointsDataset():
+class FacialKeypointsDataset(Dataset):
     """
     To return a dictionary of:
     {"image": image, "keypoints": keypoints}
