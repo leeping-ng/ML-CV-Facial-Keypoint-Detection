@@ -25,5 +25,7 @@ def detect_face(path_xml, image, fig_shape, scale_factor=1.2, show=True):
         plt.axis("off")
         plt.show()
 
+    print("Number of detected faces: ", len(face_vertices))
+
     return face_vertices
 

@@ -81,6 +81,9 @@ def show_keypoints(image, face_vertices, net, use_GPU, fig_shape, pad):
 
 
 def show_shades(image, face_vertices, shades, keypoints, fig_shape):
+    """
+    Draw shades on each face of the image
+    """
 
     # make a copy of the original image to plot on
     image_copy = image.copy()
@@ -89,6 +92,7 @@ def show_shades(image, face_vertices, shades, keypoints, fig_shape):
 
         keypoints_i = keypoints[i]
 
+        # add shades in this section
         shades_x = int(keypoints_i[17, 0])
         shades_y = int(keypoints_i[17, 1])
         shades_h = int(abs(keypoints_i[27,1] - keypoints_i[34,1]))
