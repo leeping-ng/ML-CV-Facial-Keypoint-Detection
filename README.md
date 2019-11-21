@@ -10,7 +10,7 @@ Next, a pre-trained Haar Cascades model is used to detect both of their faces. T
 
 <img src="images/mib_boundingbox.png" width="450" height="300">
 
-Subsequently, a Convolutional Neural Network (CNN) detects 68 facial keypoints from each face. A <a href="https://arxiv.org/pdf/1710.00977.pdf">NaimishNet</a> model was trained for over 100 epochs on the YouTube Faces Dataset. 
+Subsequently, a Convolutional Neural Network (CNN) detects 68 facial keypoints from each face. A <a href="https://arxiv.org/pdf/1710.00977.pdf">NaimishNet</a> model was trained for over 100 epochs on the YouTube Faces Dataset to achieve this. The predicted facial keypoints are the magenta dots superimposed on the image below.
 
 <img src="images/mib_facekeypoints.png" width="450" height="300">
 
