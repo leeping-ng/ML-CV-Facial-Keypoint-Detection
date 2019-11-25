@@ -22,15 +22,17 @@ Lastly, shades are added to each face on the image based on the coordinates of t
 ### Running the Pipeline
 1. Clone this repository:
 
-`git clone https://github.com/leeping-ng/ML-CV-Facial-Keypoint-Detection.git`
-
-`cd ML-CV-Facial-Keypoint-Detection`
+```
+git clone https://github.com/leeping-ng/ML-CV-Facial-Keypoint-Detection.git
+cd ML-CV-Facial-Keypoint-Detection
+```
 
 2. Download the training and testing dataset and unzip it in the `PATH/data`:
 
-`wget -P data/ https://s3.amazonaws.com/video.udacity-data.com/topher/2018/May/5aea1b91_train-test-data/train-test-data.zip`
-
-`unzip -n data/train-test-data.zip -d data`
+```
+wget -P data/ https://s3.amazonaws.com/video.udacity-data.com/topher/2018/May/5aea1b91_train-test-data/train-test-data.zip
+unzip -n data/train-test-data.zip -d data
+```
 
 3. Go to section 2 (*Train CNN to Recognize Facial Keypoints*) in the Jupyter Notebook and run the cells to train the CNN. You may adjust the number of epochs and whether to use GPU (I highly recommend using GPU if possible) accordingly.
 
